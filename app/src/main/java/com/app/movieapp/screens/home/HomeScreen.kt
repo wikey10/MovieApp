@@ -24,6 +24,7 @@ import com.app.movieapp.model.getMovies
 import com.app.movieapp.navigation.MovieScreens
 import com.app.movieapp.widgets.MovieRow
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun  HomeScreen(navController: NavController){
     Scaffold(
@@ -52,8 +53,8 @@ fun MyContent(
     Column (modifier = Modifier.padding(20.dp)){
         LazyColumn {
             items(items = movie){
-                MovieRow(it,){movie->
-                    navController.navigate(route = MovieScreens.DetailsScreen.name+ "/$movie",)
+                MovieRow(it){movie->
+                    navController.navigate(route = MovieScreens.DetailsScreen.name+ "/$movie")
                     Log.d("TAG","MainContent: $movie")
 
                 }
