@@ -20,6 +20,8 @@ import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -60,7 +62,7 @@ fun  MovieRow(movie: Movie= getMovies()[0], onItemClick:(String)->Unit={}){
             defaultElevation = 6.dp
         ),
         modifier = Modifier.padding(10.dp).fillMaxWidth().clickable {
-            onItemClick(movie.title)
+            onItemClick(movie.id)
         },
         shape = RoundedCornerShape(
             corner = CornerSize(16.dp)
@@ -75,9 +77,7 @@ fun  MovieRow(movie: Movie= getMovies()[0], onItemClick:(String)->Unit={}){
                 shape = RectangleShape
             ) {
                 Image(
-                    painter = rememberImagePainter(movie.images.first(), builder = {
-                        transformations(CircleCropTransformation())
-                    }),
+                    painter = rememberImagePainter(movie.images.first(), ),
                     contentDescription = "My content description",
                 )
             }
@@ -92,10 +92,15 @@ fun  MovieRow(movie: Movie= getMovies()[0], onItemClick:(String)->Unit={}){
                            withStyle(style = SpanStyle(color = Color.DarkGray, fontSize = 13.sp)){
                                append("Plot:")
                            }
-                           withStyle(style = SpanStyle(color = Color.DarkGray, fontSize = 13.sp, fontWeight = FontWeight.Bold)){
+                           withStyle(style = SpanStyle(color = Color.DarkGray, fontSize = 13.sp, fontWeight = FontWeight.Normal)){
                                append(movie.plot)
                            }
-                       })
+                       }, modifier = Modifier.padding(5.dp))
+
+                       HorizontalDivider(modifier = Modifier.padding(3.dp))
+                       Text("Director: ${movie.director}")
+                       Text("Actors: ${movie.actors}")
+                       Text("Ratings: ${movie.rating}")
                    }
                }
                 Icon(imageVector = if(expanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown, contentDescription = "Down Arrow", modifier = Modifier.size(25.dp).clickable {
